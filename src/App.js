@@ -1,25 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Img />
+      <Form />
     </div>
   );
 }
 
-export default App;
+function Img() {
+  return (
+    <div>
+      <img src="img/icon.jpg" alt="Log-in" className="img"></img>
+    </div>
+  );
+}
+
+function Form() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function handleLogin(e) {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setErrorMessage(alert("Please fill in all fields."));
+      return;
+    }
+    setUsername("");
+    setPassword("");
+    setErrorMessage("");
+
+    alert(`Hello, ${username}!`);
+  }
+
+  return (
+    <div className="container">
+      <form onSubmit={handleLogin} className="form">
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        ></input>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></input>
+        <button className="btn">Log in</button>
+      </form>
+    </div>
+  );
+}
